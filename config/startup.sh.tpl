@@ -23,11 +23,11 @@ mkdir -p "$(dirname "${config_path}")"
 
 # Create the Refinery config file
 cat > "${config_path}/refinery.yaml" << EOF
-${file("refinery/config.yaml")}
+${file("config/config.yaml")}
 EOF
 
 # Create the Refinery rules file
 cat > "${config_path}/rules.yaml" << EOF
-${file("refinery/rules.yaml")}
+${file("config/rules.yaml")}
 EOF
 

@@ -61,7 +61,7 @@ module "refinery_instance_template" {
   machine_type   = "n1-standard-1"
   labels         = local.labels
   metadata       = merge(local.additional_metadata, { "gce-container-declaration" = module.refinery_gce_container.metadata_value, "project-id" = var.project_id })
-  startup_script = templatefile("${path.module}/refinery/startup.sh.tpl", { config_path = local.config_path })
+  startup_script = templatefile("${path.module}/config/startup.sh.tpl", { config_path = local.config_path })
   service_account = {
     email  = google_service_account.honeycomb_refinery.email
     scopes = ["cloud-platform"]
