@@ -14,9 +14,9 @@ This module is meant for use with Terraform 0.13+ and tested using Terraform 1.0
 
 ```hcl
 module "honeycomb_refinery" {
-    Source = github.com/rittenlabs/terraform-honeycomb-refinery
+    source = "github.com/rittenlabs/terraform-honeycomb-refinery"
 
-    honeycomb_refinery_version  = "latest"
+    honeycomb_refinery_verison  = "latest"
     project_id                  = "my-project"
     vpc                         = "vpc-primary"
     subnet                      = "subnet-primary"

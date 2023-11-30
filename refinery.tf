@@ -56,10 +56,9 @@ module "refinery_gce_container" {
 module "refinery_instance_template" {
   source         = "terraform-google-modules/vm/google//modules/instance_template"
   version        = "10.1.1"
-  name_prefix    = "refinery-${var.env_name}-instance-template"
+  name_prefix    = "refinery-instance-template"
   project_id     = var.project_id
   machine_type   = "n1-standard-1"
-  labels         = local.labels
   metadata       = merge(local.additional_metadata, { "gce-container-declaration" = module.refinery_gce_container.metadata_value, "project-id" = var.project_id })
   startup_script = templatefile("${path.module}/config/startup.sh.tpl", { config_path = local.config_path })
   service_account = {
@@ -80,7 +79,6 @@ module "refinery_instance_template" {
   /* disks */
   disk_size_gb = 10
   disk_type    = "pd-ssd"
-  disk_labels  = local.labels
   auto_delete  = true
 }
 
@@ -88,7 +86,7 @@ module "refinery_mig" {
   source            = "terraform-google-modules/vm/google//modules/mig"
   version           = "10.1.1"
   project_id        = var.project_id
-  hostname          = "refinery-${var.env_name}"
+  hostname          = "refinery"
   region            = var.region
   instance_template = module.refinery_instance_template.self_link
   target_size       = 1
