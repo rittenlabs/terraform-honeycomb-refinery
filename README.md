@@ -26,9 +26,9 @@ module "honeycomb_refinery" {
     metrics_api_key_secret_name = "honeycomb-refinery-metrics-api-key"
 }
 
-Note: Once deployed you will likely need to make updates to your firewall in order to actually send trace and metrics data to Refinery.
-
 ```
+
+Note: Once deployed you will likely need to make updates to your firewall in order to actually send trace and metrics data to Refinery.
 
 ### Inputs
 
