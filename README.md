@@ -16,13 +16,13 @@ This module is meant for use with Terraform 0.13+ and tested using Terraform 1.0
 module "honeycomb_refinery" {
     Source = github.com/rittenlabs/terraform-honeycomb-refinery
 
-    honeycomb_refinery_version = "latest"
-    project_id = "my-project"
-    vpc = "vpc-primary"
-    subnet = "subnet-primary"
-    region = "us-east1"
-    zone = "us-east1-b"
-    api_key_secret_name = "honeycomb-refinery-api-key"
+    honeycomb_refinery_version  = "latest"
+    project_id                  = "my-project"
+    vpc                         = "vpc-primary"
+    subnet                      = "subnet-primary"
+    region                      = "us-east1"
+    zone                        = "us-east1-b"
+    api_key_secret_name         = "honeycomb-refinery-api-key"
     metrics_api_key_secret_name = "honeycomb-refinery-metrics-api-key"
 }
 
