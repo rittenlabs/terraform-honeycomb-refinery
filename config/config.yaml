@@ -1,0 +1,14 @@
+# This config file is the bare minimum required to run Refinery with a simple no auth Redis instance in GCP
+
+General:
+  ConfigurationVersion: 2
+Network:
+  ListenAddr: "0.0.0.0:8080"
+  PeerListenAddr: "0.0.0.0:8081"
+OTelMetrics:
+  Enabled: true
+PeerManagement:
+  Type: redis
+  Identifier: $INSTANCE_IP # this value will be set by startup.sh on each instance
+RedisPeerManagement:
+  UseTLS: false
