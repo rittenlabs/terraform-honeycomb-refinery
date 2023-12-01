@@ -11,6 +11,18 @@ variable "honeycomb_refinery_verison" {
   description = "Version of Honeycomb Refinery to deploy"
 }
 
+variable "config_file_path" {
+  default     = ""
+  type        = string
+  description = "Path to the Refinery config.yaml file"
+}
+
+variable "rules_file_path" {
+  default     = ""
+  type        = string
+  description = "Path to the Refinery rules.yaml file"
+}
+
 variable "project_id" {
   default     = "my-project"
   type        = string

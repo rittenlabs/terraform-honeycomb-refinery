@@ -4,6 +4,8 @@ This module allows you to create a Managed Instance Group running Honeycomb Refi
 
 We expect that you will already have a VPC and Subnet created where these instances will be instantiated. You will also need to have two secrets created in advance containing Honeycomb API keys.
 
+This module provides two bare bones files for config and rules to be used with Refinery. The config.yaml file in particular requires the identifier in peer management be set to `$INSTANCE_IP` in order to enable scaling. We allow you to pass your own files here, but you will need to follow this convention to avoid issues with scaling.
+
 ## Compatibility
 
 This module is meant for use with Terraform 0.13+ and tested using Terraform 1.0+. If you find incompatibilities using Terraform >=0.13, please open an issue.
@@ -17,6 +19,8 @@ module "honeycomb_refinery" {
     source = "github.com/rittenlabs/terraform-honeycomb-refinery"
 
     honeycomb_refinery_verison  = "latest"
+    config_file_path            = "./config.yaml"
+    rules_file_path             = "./rules.yaml"
     project_id                  = "my-project"
     vpc                         = "vpc-primary"
     subnet                      = "subnet-primary"
@@ -35,6 +39,8 @@ Note: Once deployed you will likely need to make updates to your firewall in ord
 | Name                        | Description                                                                                   | Default                            | Required |
 | --------------------------- | --------------------------------------------------------------------------------------------- | ---------------------------------- | -------- |
 | honeycomb_refinery_verison  | Version of Honeycomb Refinery to deploy                                                       | latest                             | yes      |
+| config_file_path            | Path to the Refinery config.yaml file"                                                        | ${path.module}/config/config.yaml  | no       |
+| rules_file_path             | Path to the Refinery rules.yaml file"                                                         | ${path.module}/config/rules.yaml   | no       |
 | project_id                  | GCP Project ID                                                                                | my-project                         | yes      |
 | vpc                         | Name of an existing vpc where the resources will be created                                   | vpc-primary                        | yes      |
 | subnet                      | Name of a subnet within the existing vpc where the resources will be created                  | subnet-primary                     | yes      |

@@ -6,7 +6,9 @@ Use of this source code is governed by a MIT license that can be found in the LI
 */
 
 locals {
-  config_path = "/etc/refinery/"
+  refinery_config_path = "/etc/refinery/"
+  source_config_path   = coalesce(var.config_file_path, "${path.module}/config/config.yaml")
+  source_rules_path    = coalesce(var.rules_file_path, "${path.module}/config/rules.yaml")
 
   additional_metadata = {
     "api-key"         = "honeycomb-refinery-api-key"
@@ -22,7 +24,7 @@ module "refinery_gce_container" {
     image = "honeycombio/refinery:${var.honeycomb_refinery_verison}"
     volumeMounts = [
       {
-        mountPath = local.config_path
+        mountPath = local.refinery_config_path
         name      = "config"
         readOnly  = true
       },
@@ -46,7 +48,7 @@ module "refinery_gce_container" {
     {
       name = "config"
       hostPath = {
-        path = local.config_path
+        path = local.refinery_config_path
       }
     },
   ]
@@ -60,7 +62,7 @@ module "refinery_instance_template" {
   project_id     = var.project_id
   machine_type   = "n1-standard-1"
   metadata       = merge(local.additional_metadata, { "gce-container-declaration" = module.refinery_gce_container.metadata_value, "project-id" = var.project_id })
-  startup_script = templatefile("${path.module}/config/startup.sh.tpl", { config_path = local.config_path })
+  startup_script = templatefile("${path.module}/config/startup.sh.tpl", { config_path = local.refinery_config_path, source_config_path = local.source_config_path, source_rules_path = local.source_rules_path })
   service_account = {
     email  = google_service_account.honeycomb_refinery.email
     scopes = ["cloud-platform"]
@@ -86,7 +88,7 @@ module "refinery_mig" {
   source            = "terraform-google-modules/vm/google//modules/mig"
   version           = "10.1.1"
   project_id        = var.project_id
-  hostname          = "refinery"
+  hostname          = "honeycomb-refinery"
   region            = var.region
   instance_template = module.refinery_instance_template.self_link
   target_size       = 1
