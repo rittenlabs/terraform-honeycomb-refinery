@@ -10,7 +10,7 @@ module "gce_container_redis" {
   version = "3.1.0"
 
   container = {
-    image = "us-docker.pkg.dev/ritten-ops/external/redis:7.2"
+    image = "redis:7.2"
   }
   restart_policy = "OnFailure"
 }

@@ -1,6 +1,6 @@
 # terraform-honeycomb-refinery
 
-This module allows you to create a Managed Instance Group running Honeycomb Refinery and a single compute instance running a small Redis server to support the Refinery instances.
+This module allows you to create a Managed Instance Group running [Honeycomb Refinery](https://docs.honeycomb.io/manage-data-volume/refinery/) and a single compute instance running a small Redis server to support the Refinery instances.
 
 We expect that you will already have a VPC and Subnet created where these instances will be instantiated. You will also need to have two secrets created in advance containing Honeycomb API keys.
 

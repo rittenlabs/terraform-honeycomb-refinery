@@ -71,7 +71,6 @@ module "refinery_instance_template" {
 
   /* network */
   subnetwork = data.google_compute_subnetwork.primary_subnetwork.id
-  # can_ip_forward = var.can_ip_forward
 
   /* image */
   source_image_project = "cos-cloud"
