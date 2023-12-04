@@ -102,13 +102,15 @@ module "refinery_mig" {
     },
   ]
 
-  /* autoscaler */
-  autoscaling_enabled = true
-  max_replicas        = 3
-  min_replicas        = 1
-  cooldown_period     = 60
-  autoscaling_cpu = [{
-    target            = 0.75
-    predictive_method = "OPTIMIZE_AVAILABILITY"
-  }]
+  /* update */
+  # TODO: replace max surge and unavailable with vars (or possibly this full policy)
+  update_policy = {
+    type                           = "PROACTIVE"
+    instance_redistribution_type   = "PROACTIVE"
+    minimal_action                 = "REPLACE"
+    most_disruptive_allowed_action = "REPLACE"
+    max_surge_fixed                = 2
+    max_unavailable_fixed          = 2
+    replacement_method             = "SUBSTITUTE"
+  }
 }
