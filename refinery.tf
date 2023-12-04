@@ -6,7 +6,7 @@ Use of this source code is governed by a MIT license that can be found in the LI
 */
 
 locals {
-  refinery_config_path = "/etc/refinery/"
+  refinery_config_path = "/etc/refinery"
   source_config_path   = coalesce(var.config_file_path, "${path.module}/config/config.yaml")
   source_rules_path    = coalesce(var.rules_file_path, "${path.module}/config/rules.yaml")
 
