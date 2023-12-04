@@ -90,7 +90,7 @@ module "refinery_mig" {
   hostname          = "honeycomb-refinery"
   region            = var.region
   instance_template = module.refinery_instance_template.self_link
-  target_size       = 1
+  target_size       = 2
   named_ports = [
     {
       name = "http",
@@ -104,13 +104,16 @@ module "refinery_mig" {
 
   /* update */
   # TODO: replace max surge and unavailable with vars (or possibly this full policy)
-  update_policy = {
+  update_policy = [{
     type                           = "PROACTIVE"
     instance_redistribution_type   = "PROACTIVE"
     minimal_action                 = "REPLACE"
     most_disruptive_allowed_action = "REPLACE"
-    max_surge_fixed                = 2
-    max_unavailable_fixed          = 2
+    max_surge_fixed                = 4
+    max_surge_percent              = null
+    max_unavailable_fixed          = 4
+    max_unavailable_percent        = null
+    min_ready_sec                  = null
     replacement_method             = "SUBSTITUTE"
-  }
+  }]
 }
