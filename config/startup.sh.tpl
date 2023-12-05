@@ -1,9 +1,7 @@
-/*
-
+: '
 Copyright (c) 2023 - Present. Ritten. All rights reserved
 Use of this source code is governed by a MIT license that can be found in the LICENSE file.
-
-*/
+'
 
 #!/usr/bin/env bash
 
@@ -19,7 +17,7 @@ set -o errexit -o nounset -o pipefail -o posix
 INSTANCE_IP=$(hostname -i)
 
 # Create the Refinery config directory
-mkdir -p "$(dirname "${config_path}")"
+mkdir -p "${config_path}"
 
 # Create the Refinery config file
 cat > "${config_path}/refinery.yaml" << EOF

@@ -6,7 +6,7 @@ Use of this source code is governed by a MIT license that can be found in the LI
 */
 
 locals {
-  refinery_config_path = "/etc/refinery/"
+  refinery_config_path = "/etc/refinery"
   source_config_path   = coalesce(var.config_file_path, "${path.module}/config/config.yaml")
   source_rules_path    = coalesce(var.rules_file_path, "${path.module}/config/rules.yaml")
 
@@ -90,7 +90,7 @@ module "refinery_mig" {
   hostname          = "honeycomb-refinery"
   region            = var.region
   instance_template = module.refinery_instance_template.self_link
-  target_size       = 1
+  target_size       = 2
   named_ports = [
     {
       name = "http",
@@ -102,13 +102,18 @@ module "refinery_mig" {
     },
   ]
 
-  /* autoscaler */
-  autoscaling_enabled = true
-  max_replicas        = 3
-  min_replicas        = 1
-  cooldown_period     = 60
-  autoscaling_cpu = [{
-    target            = 0.75
-    predictive_method = "OPTIMIZE_AVAILABILITY"
+  /* update */
+  # TODO: replace max surge and unavailable with vars (or possibly this full policy)
+  update_policy = [{
+    type                           = "PROACTIVE"
+    instance_redistribution_type   = "PROACTIVE"
+    minimal_action                 = "REPLACE"
+    most_disruptive_allowed_action = "REPLACE"
+    max_surge_fixed                = 4
+    max_surge_percent              = null
+    max_unavailable_fixed          = 4
+    max_unavailable_percent        = null
+    min_ready_sec                  = null
+    replacement_method             = "SUBSTITUTE"
   }]
 }
