@@ -17,7 +17,7 @@ set -o errexit -o nounset -o pipefail -o posix
 INSTANCE_IP=$(hostname -i)
 
 # Create the Refinery config directory
-mkdir -p "$(dirname "${config_path}")"
+mkdir -p "${config_path}"
 
 # Create the Refinery config file
 cat > "${config_path}/refinery.yaml" << EOF
