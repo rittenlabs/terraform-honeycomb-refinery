@@ -11,8 +11,10 @@ locals {
   source_rules_path    = coalesce(var.rules_file_path, "${path.module}/config/rules.yaml")
 
   additional_metadata = {
-    "api-key"         = "honeycomb-refinery-api-key"
-    "metrics-api-key" = "honeycomb-refinery-metrics-api-key"
+    "api-key"                = "honeycomb-refinery-api-key"
+    "metrics-api-key"        = "honeycomb-refinery-metrics-api-key"
+    "google-logging-enabled" = "true"
+    "cos-metrics-enabled"    = "true"
   }
 }
 
