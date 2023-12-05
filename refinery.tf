@@ -92,7 +92,7 @@ module "refinery_mig" {
   hostname          = "honeycomb-refinery"
   region            = var.region
   instance_template = module.refinery_instance_template.self_link
-  target_size       = 2
+  target_size       = var.refinery_instance_count
   named_ports = [
     {
       name = "http",
@@ -111,9 +111,9 @@ module "refinery_mig" {
     instance_redistribution_type   = "PROACTIVE"
     minimal_action                 = "REPLACE"
     most_disruptive_allowed_action = "REPLACE"
-    max_surge_fixed                = 4
+    max_surge_fixed                = max(length(data.google_compute_zones.available), var.refinery_instance_count * 2)
     max_surge_percent              = null
-    max_unavailable_fixed          = 4
+    max_unavailable_fixed          = max(length(data.google_compute_zones.available), var.refinery_instance_count * 2)
     max_unavailable_percent        = null
     min_ready_sec                  = null
     replacement_method             = "SUBSTITUTE"
