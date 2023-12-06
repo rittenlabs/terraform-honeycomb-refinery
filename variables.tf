@@ -23,6 +23,12 @@ variable "rules_file_path" {
   description = "Path to the Refinery rules.yaml file"
 }
 
+variable "refinery_instance_count" {
+  default     = 1
+  type        = number
+  description = "The number of Honeycomb Refinery Instance to run"
+}
+
 variable "project_id" {
   default     = "my-project"
   type        = string

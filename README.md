@@ -41,6 +41,7 @@ Note: Once deployed you will likely need to make updates to your firewall in ord
 | honeycomb_refinery_verison  | Version of Honeycomb Refinery to deploy                                                       | latest                             | yes      |
 | config_file_path            | Path to the Refinery config.yaml file"                                                        | ${path.module}/config/config.yaml  | no       |
 | rules_file_path             | Path to the Refinery rules.yaml file"                                                         | ${path.module}/config/rules.yaml   | no       |
+| refinery_instance_count     | The number of Honeycomb Refinery Instance to run                                              | 1                                  | no       |
 | project_id                  | GCP Project ID                                                                                | my-project                         | yes      |
 | vpc                         | Name of an existing vpc where the resources will be created                                   | vpc-primary                        | yes      |
 | subnet                      | Name of a subnet within the existing vpc where the resources will be created                  | subnet-primary                     | yes      |
